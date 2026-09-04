@@ -22,7 +22,7 @@ MANIFEST_FIELDNAMES = [
 
 
 class ManifestStore:
-    def __int__(self, project_dir: str):
+    def __init__(self, project_dir: str):
         self.project_dir = Path(project_dir)
         self.project_dir.mkdir(parents=True, exist_ok=True)
 

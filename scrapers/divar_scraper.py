@@ -34,7 +34,7 @@ class DivarScraper(BaseScraper):
         with sync_playwright() as p:
             context = self._init_context(p)
             page = context.new_page()
-            page.goto(self.base_url)
+            page.goto(search_url)
             page.wait_for_timeout(1500)
 
             no_new_links_streak = 0
@@ -98,7 +98,7 @@ class DivarScraper(BaseScraper):
         return collected
 
     def extract_listing(self, listing_url: str, retries: int = 3) -> Dict[str, Any]:
-        full_url = (f"{self.base_url}/{listing_url}" if listing_url.startswith("/") else listing_url)
+        full_url = (f"{self.base_url}{listing_url}" if listing_url.startswith("/") else listing_url)
         listing_id = listing_url.rstrip("/").split("/")[-1]
 
         data = None
@@ -223,7 +223,7 @@ def _collect_post_image_urls(page) -> list:
 
     for img in img_elements:
         src = img.get_attribute("src")
-        if src and "web_post" in src and src not in seen:
+        if src and "webp_post" in src and src not in seen:
             seen.add(src)
             img_urls.append(src)
     return img_urls
